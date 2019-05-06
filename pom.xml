@@ -65,10 +65,18 @@
 			<artifactId>spring-boot-starter-logging</artifactId>
 		</dependency>
 
+		<!--分页插件-->
 		<dependency>
 			<groupId>com.github.pagehelper</groupId>
 			<artifactId>pagehelper</artifactId>
 			<version>4.1.0</version>
+		</dependency>
+
+		<!-- JWT相关 -->
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.7.0</version>
 		</dependency>
 
 		<!--热部署-->
