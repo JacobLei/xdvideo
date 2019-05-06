@@ -1,11 +1,15 @@
 package com.jacob.video.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.jacob.video.domain.Video;
 import com.jacob.video.service.VideoService;
 import org.apache.ibatis.annotations.Param;
 import org.hibernate.validator.constraints.pl.REGON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/video")
@@ -23,8 +27,10 @@ public class VideoController {
     @GetMapping("page")
     public Object pageVide(@RequestParam(value = "page", defaultValue = "1") int page,
                            @RequestParam(value = "size", defaultValue = "10") int size){
-
-        return videoService.findAll();
+        PageHelper.startPage(page, size);
+        List<Video> list = videoService.findAll();
+        PageInfo<Video> pageInfo = new PageInfo<>(list);
+        return pageInfo;
     }
 
     /**
