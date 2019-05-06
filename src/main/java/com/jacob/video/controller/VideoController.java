@@ -1,19 +1,41 @@
 package com.jacob.video.controller;
 
+import com.jacob.video.domain.Video;
+import com.jacob.video.service.VideoService;
+import org.apache.ibatis.annotations.Param;
 import org.hibernate.validator.constraints.pl.REGON;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/api/v1/video")
 public class VideoController {
 
-    @RequestMapping("test")
-    public String test(){
-        return "hello 222";
+    @Autowired
+    private VideoService videoService;
+
+    /**
+     * 分页接口
+     * @param page 当前第几页，默认是第一页
+     * @param size 每页显示几条，默认显示十条
+     * @return
+     */
+    @GetMapping("page")
+    public Object pageVide(@RequestParam(value = "page", defaultValue = "1") int page,
+                           @RequestParam(value = "size", defaultValue = "10") int size){
+
+        return videoService.findAll();
     }
 
-    @RequestMapping("my")
-    public String my(){
-        return "my";
+    /**
+     * 根据Id查找视频
+     * @param videoId
+     * @return
+     */
+    @GetMapping("find_by_id")
+    public Object findById(@RequestParam(value = "video_id", required = true) int videoId){
+
+        return videoService.findById(videoId);
     }
+
 }
